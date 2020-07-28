@@ -13,12 +13,26 @@ const exec = () => {
     let answer = num1 + num2;
     rl.question(`What is ${ num1 } + ${ num2 }?`, 
     (userInput)=>{
-        console.log(userInput);
-        rl.close();
-    }
-    );
+        if(userInput.trim() == answer) 
+        {
+            rl.close();
+        } 
+        else
+        {
+            rl.setPrompt('Incorrect. Try again \n');
+            rl.prompt();
+            rl.on('line', (userInput) => {
+                if(userInput.trim() == answer) 
+                {
+                    rl.close();
+                } 
+            })
+        }
+    });
 
-
+    rl.on('close', () => {
+        console.log('Correct.');
+    });
 };
 
 module.exports.exec = exec;
