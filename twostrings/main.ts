@@ -21,7 +21,7 @@ function readLine(): string {
 
 main();
 
-function twoStrings(s1: string, s2: string): string {
+async function twoStrings(s1: string, s2: string): Promise<string> {
     // Write your code here
     s1 = s1.replace('\r','');;
     s2 = s2.replace('\r','');;
@@ -35,18 +35,16 @@ function twoStrings(s1: string, s2: string): string {
     return ret;
 }
 
-function main() {
+async function main() {
 
     const q: number = parseInt(readLine().trim(), 10);
 
     for (let qItr: number = 0; qItr < q; qItr++) {
         const s1: string = readLine();
-        if (!s1) break;
 
         const s2: string = readLine();
-        if (!s2) break;
 
-        const result: string = twoStrings(s1, s2);
+        const result: string = await twoStrings(s1, s2);
 
         console.log(result + '\n');
     }
