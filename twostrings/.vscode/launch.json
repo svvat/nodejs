@@ -3,6 +3,7 @@
     "configurations": [  
         {
             "name": "ts-node",
+            "program": "${file}",
             "type": "node",
             "request": "launch",
             "args": [
