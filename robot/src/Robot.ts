@@ -1,26 +1,19 @@
-import { Converter, IConverter } from "./Converter";
-import { INavigator, Navigator } from "./Navigator";
-import { IChamber } from "./Chamber";
 import { IPosition } from "./Position";
 export interface IRobot
 {
     sendCommands(command:string);
     advance();
     reverse();
-    turn(change: string);
+    left();
+    right();
     reportPosition(): string;
     setPosition(positionInput: IPosition);
     getPosition(): IPosition;
-    hdg: number;
 }
 
 export class Robot implements IRobot
 {
     private position: IPosition;
-    private converter: IConverter = new Converter();
-    private navigator: INavigator;
-    hdg: number;
-
 
     sendCommands(commands: string) {
         let nCmds=commands.length;
@@ -30,12 +23,6 @@ export class Robot implements IRobot
         }
     }
 
-    constructor(c: IConverter, n: INavigator, hdg: string)
-    {
-        this.converter = c;
-        this.navigator = n;
-        this.hdg = this.converter.convertDirToNum(hdg);
-    }
     getPosition(): IPosition {
         return this.position;
     }
@@ -51,8 +38,10 @@ export class Robot implements IRobot
         switch (order)
         {
             case 'L':
+                this.left();
+                break;
             case 'R':
-                this.turn(order);
+                this.right();
                 break;
             case 'F':
                 this.advance();
@@ -66,24 +55,26 @@ export class Robot implements IRobot
         }
     }
 
-    advance()
-    {
-        this.position = this.navigator.advance(this.position, this.hdg);
-    }
     reverse()
     {
-        this.position = this.navigator.reverse(this.position, this.hdg);
+        this.position.y--;
     }
-    turn(change: string)
+    advance()
     {
-        this.hdg = this.navigator.turn(this.hdg, this.converter.convertTurn(change));
+        this.position.y++;
+    }
+    left()
+    {
+        this.position.x--;
+    }
+    right()
+    {
+        this.position.x++;
     }
 
     public reportPosition():string
     {
-        let hdg = this.converter.convertDir(this.hdg);
-
-        return `${this.position.x},${this.position.y},${hdg}`;
+        return `${this.position.x},${this.position.y}`;
     }
 
 

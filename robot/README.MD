@@ -72,7 +72,7 @@ Here's some test data:
 
  ## Execution 
  To run from the command line
--  npx ts-node src/main.ts a b c 
+-  npx ts-node src/main.ts 
 
 To run unit tests
 - npm run tests

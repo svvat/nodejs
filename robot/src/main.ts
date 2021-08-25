@@ -1,9 +1,6 @@
 'use strict';
 import * as fs from 'fs';
-import { WriteStream, createWriteStream } from "fs";
 import { exit } from 'process';
-import { Converter } from './Converter';
-import { INavigator, Navigator } from './Navigator';
 import { IChamber, Chamber } from './Chamber';
 import { IPosition } from './Position';
 import { Robot } from './Robot';
@@ -29,8 +26,7 @@ main();
 function main() {
 
     let chamber: IChamber = new Chamber(10, 10);
-    let navigator : INavigator =  new Navigator(chamber);
-    let robot = new Robot(new Converter(), navigator, "N");
+    let robot = new Robot();
 
     let input = readLine();
     while(input != undefined) {
