@@ -10,11 +10,11 @@ export interface ISurface
         xMax: number;
         yMax: number;
 
-        public Plateau(input:string )
+        constructor(input:string )
         {
             let positionItems = input.split(' ');
             if (positionItems.length != 2)
-                throw new Error("Invalid number of items in plateau input");
+                throw new Error("Invalid number of items in Surface input");
             try
             {
                 this.xMax = Number(positionItems[0])
@@ -22,7 +22,7 @@ export interface ISurface
             }
             catch (error)
             {
-                throw new Error("Invalid plateau input");
+                throw new Error("Invalid Surface input");
             }
         }
     }
