@@ -1,33 +1,33 @@
+import { IPosition } from "./Position";
+
 export type Dictionary = {[key: string]: number};
 
 export interface IConverter
 {
-    convertDirNum(dir: number): string;
-    convertDir(dir: string): number
+    convertDir(dir: number): string;
+    convertDirToNum(dir: string): number
     convertTurn(t: string): number
-    convertPositionString(positionInput: string): SVGTextPositioningElement;
+    convertPositionString(positionInput: string): IPosition;
 }
 
 
 export class Converter implements IConverter
 {
-    hdg: Dictionary = { N: 0, E: 1, S: 2, W: 3 };
-
-    public convertDirNum(dir: number): string
-    {
+    public convertDir(dir: number): string {
         if (dir == 0 ) { return "N"};
         if (dir == 1 ) { return "E"};
         if (dir == 2 ) { return "S"};
         if (dir == 3 ) { return "W"};
         throw Error("unknown direction");
-    }
 
-    public convertDir(dir: string) : number
-    {
+    }
+    public convertDirToNum(dir: string): number {
         if (this.hdg[dir] != undefined)
             return this.hdg[dir];
         throw Error("Unknown direction");
     }
+    hdg: Dictionary = { N: 0, E: 1, S: 2, W: 3 };
+
     public convertTurn(t: string): number
     {
         if (t == 'L')
@@ -41,9 +41,9 @@ export class Converter implements IConverter
 
         throw new Error("Unknown direction change");
     }
-    public convertPositionString(positionInput:  string): Position
+    public convertPositionString(positionInput:  string): IPosition
     {
-        const position: Position;
+        let position: IPosition;
         let positionItems = positionInput.split(' ');
         if (positionItems.length != 3)
             throw new Error("Invalid number of items in position input");
@@ -51,7 +51,6 @@ export class Converter implements IConverter
         {
             position.x = Number(positionItems[0]);
             position.y = Number(positionItems[1]);
-            position.hdg = this.convertDirNum(positionItems[2]);
         }
         catch (error)
         {
