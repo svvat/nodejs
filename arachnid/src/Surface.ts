@@ -1,11 +1,11 @@
 'use strict';
 
-export interface IPlateau
+export interface ISurface
 {
     xMax: number;
     yMax: number;
 }
-    export class Plateau implements IPlateau
+    export class Surface implements ISurface
     {
         xMax: number;
         yMax: number;
